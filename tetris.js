@@ -1,7 +1,5 @@
-let
-
-window.onload = function() {
-    let board = [
+let tetris = {
+    board: [
         [2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2],
         [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
@@ -24,14 +22,17 @@ window.onload = function() {
         [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-    ];
+    ],
+};
+
+function drawScreen() {
     let canvas = document.getElementById('tetris');
     let context = canvas.getContext('2d');
 
     context.fillStyle = "gray";
     context.strokeStyle = "black";
     context.lineWidth = 2;
-    for (let [y, row] of board.entries()) {
+    for (let [y, row] of tetris.board.entries()) {
         for (let [x, cell] of row.entries()) {
             switch (cell) {
                 case 2:
@@ -42,4 +43,10 @@ window.onload = function() {
             }
         }
     }
-};
+}
+
+function initTetris() {
+    drawScreen();
+}
+
+window.addEventListener("load", initTetris);
