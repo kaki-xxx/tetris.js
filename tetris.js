@@ -33,8 +33,9 @@ window.onload = function() {
         for (let [x, cell] of row.entries()) {
             switch (cell) {
                 case 2:
-                    context.strokeRect(x * 20, y * 20, 20, 20);
-                    context.fillRect(x * 20, y * 20, 20, 20);
+                    context.rect(x * 20, y * 20, 20, 20);
+                    context.fill();
+                    context.stroke();
                     break;
             }
         }
