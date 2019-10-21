@@ -26,14 +26,17 @@ window.onload = function() {
     let canvas = document.getElementById('tetris');
     let context = canvas.getContext('2d');
 
-    context.fillStyle = "gray"
+    context.fillStyle = "gray";
+    context.strokeStyle = "black";
+    context.lineWidth = 2;
     for (let [y, row] of board.entries()) {
         for (let [x, cell] of row.entries()) {
             switch (cell) {
                 case 2:
+                    context.strokeRect(x * 20, y * 20, 20, 20);
                     context.fillRect(x * 20, y * 20, 20, 20);
                     break;
             }
         }
     }
-}
+};
