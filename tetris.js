@@ -1,6 +1,5 @@
 let tetris = {
     x: 4,
-    x: 4,
     y: 1,
     board: [
         [2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2],
@@ -66,6 +65,27 @@ let tetrimino = {
     ],
 };
 
+function landed(ux, uy) {
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        for (let [x, cell] of row.entries()) {
+            if (tetris.tetrimino[y][x] == 1 && tetris.board[uy + y][ux + x] == 2)
+                return true;
+        }
+    }
+    return false;
+}
+
+function fallDown() {
+    if (!landed(tetris.x, tetris.y + 1)) {
+        tetris.y++;
+    }
+}
+
+function progress() {
+    fallDown();
+    drawScreen();
+}
+
 function drawTetrimino(tetrimino) {
     for (let [y, row] of tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
@@ -81,6 +101,7 @@ function drawTetrimino(tetrimino) {
 }
 
 function drawScreen() {
+    tetris.context.clearRect(0, 0, tetris.width, tetris.height);
     for (let [y, row] of tetris.board.entries()) {
         for (let [x, cell] of row.entries()) {
             if (x == tetris.x && y == tetris.y) {
@@ -105,7 +126,10 @@ function initTetris() {
     context.lineWidth = 2;
     tetris.context = context;
     tetris.tetrimino = tetrimino.I;
+    tetris.width = canvas.width;
+    tetris.height = canvas.height;
     drawScreen();
 }
 
 window.addEventListener("load", initTetris);
+window.setInterval(progress, 1000);
