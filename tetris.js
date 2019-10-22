@@ -80,10 +80,10 @@ function nextTetrimino() {
     tetris.y = 1;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
     
-    if (landed(tetris.x, tetris.y)) tetris.gameOver = true;
+    if (isOverlapped(tetris.x, tetris.y)) tetris.gameOver = true;
 }
 
-function landed(ux, uy) {
+function isOverlapped(ux, uy) {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
             if (tetris.tetrimino[y][x] != 0 && tetris.board[uy + y][ux + x] != 0)
@@ -94,7 +94,7 @@ function landed(ux, uy) {
 }
 
 function fallDown() {
-    if (!landed(tetris.x, tetris.y + 1)) {
+    if (!isOverlapped(tetris.x, tetris.y + 1)) {
         tetris.y++;
     } else {
         landTetrimino();
@@ -196,5 +196,18 @@ function initTetris() {
     drawScreen();
 }
 
+function handleKeydown(event) {
+    switch (event.key) {
+        case "ArrowLeft":
+            if (!isOverlapped(tetris.x - 1, tetris.y)) tetris.x--;
+            break;
+        case "ArrowRight":
+            if (!isOverlapped(tetris.x + 1, tetris.y)) tetris.x++
+            break;
+    }
+    drawScreen();
+}
+
 window.addEventListener("load", initTetris);
+window.addEventListener("keydown", handleKeydown);
 window.setInterval(progress, 1000);
