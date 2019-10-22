@@ -204,6 +204,9 @@ function handleKeydown(event) {
         case "ArrowRight":
             if (!isOverlapped(tetris.x + 1, tetris.y)) tetris.x++
             break;
+        case "ArrowDown":
+            if (!isOverlapped(tetris.x, tetris.y + 1)) tetris.y++
+            break;
     }
     drawScreen();
 }
