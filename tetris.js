@@ -2,28 +2,28 @@ let tetris = {
     x: 4,
     y: 1,
     board: [
-        [2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     ],
 };
 
@@ -35,41 +35,45 @@ let tetrimino = {
         [0, 0, 0, 0],
     ],
     O: [
-        [0, 1, 1],
-        [0, 1, 1],
+        [0, 2, 2],
+        [0, 2, 2],
         [0, 0, 0],
     ],
     S: [
-        [0, 1, 1],
-        [1, 1, 0],
+        [0, 3, 3],
+        [3, 3, 0],
         [0, 0, 0],
     ],
     Z: [
-        [1, 1, 0],
-        [0, 1, 1],
+        [4, 4, 0],
+        [0, 4, 4],
         [0, 0, 0],
     ],
     J: [
-        [1, 1, 1],
-        [0, 0, 1],
+        [5, 5, 5],
+        [0, 0, 5],
         [0, 0, 0],
     ],
     L: [
-        [1, 1, 1],
-        [1, 0, 0],
+        [6, 6, 6],
+        [6, 0, 0],
         [0, 0, 0],
     ],
     T: [
-        [1, 1, 1],
-        [0, 1, 0],
+        [7, 7, 7],
+        [0, 7, 0],
         [0, 0, 0],
     ],
 };
 
+function nextTetrimino() {
+
+}
+
 function landed(ux, uy) {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
-            if (tetris.tetrimino[y][x] == 1 && tetris.board[uy + y][ux + x] == 2)
+            if (tetris.tetrimino[y][x] != 0 && tetris.board[uy + y][ux + x] != 0)
                 return true;
         }
     }
@@ -79,6 +83,8 @@ function landed(ux, uy) {
 function fallDown() {
     if (!landed(tetris.x, tetris.y + 1)) {
         tetris.y++;
+    } else {
+        nextTetrimino();
     }
 }
 
@@ -90,13 +96,34 @@ function progress() {
 function drawTetrimino(tetrimino) {
     for (let [y, row] of tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
-            if (cell == 1) {
-                tetris.context.beginPath();
-                tetris.context.fillStyle = "lightblue";
-                tetris.context.rect((tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
-                tetris.context.fill();
-                tetris.context.stroke();
+            if (cell == 0) continue;
+            tetris.context.beginPath();
+            switch (cell) {
+                case 1:
+                    tetris.context.fillStyle = "lightblue";
+                    break;
+                case 2:
+                    tetris.context.fillStyle = "yellow";
+                    break;
+                case 3:
+                    tetris.context.fillStyle = "green";
+                    break;
+                case 4:
+                    tetris.context.fillStyle = "red";
+                    break;
+                case 5:
+                    tetris.context.fillStyle = "blue";
+                    break;
+                case 6:
+                    tetris.context.fillStyle = "orange";
+                    break;
+                case 7:
+                    tetris.context.fillStyle = "purple";
+                    break;
             }
+            tetris.context.rect((tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
+            tetris.context.fill();
+            tetris.context.stroke();
         }
     }
 }
@@ -109,7 +136,7 @@ function drawScreen() {
                 drawTetrimino(tetris.tetrimino);
             }
             switch (cell) {
-                case 2:
+                case 9:
                     tetris.context.beginPath();
                     tetris.context.fillStyle = "gray";
                     tetris.context.rect(x * 20, y * 20, 20, 20);
