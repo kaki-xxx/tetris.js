@@ -1,6 +1,7 @@
 let tetris = {
     x: 4,
     y: 1,
+    gameOver: false,
     board: [
         [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
         [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
@@ -78,6 +79,8 @@ function nextTetrimino() {
     tetris.x = 4;
     tetris.y = 1;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+    
+    if (landed(tetris.x, tetris.y)) tetris.gameOver = true;
 }
 
 function landed(ux, uy) {
@@ -100,6 +103,7 @@ function fallDown() {
 }
 
 function progress() {
+    if (tetris.gameOver) return;
     fallDown();
     drawScreen();
 }
