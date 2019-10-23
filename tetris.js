@@ -1,6 +1,8 @@
+let init_x = 3;
+let init_y = 0;
 let tetris = {
-    x: 4,
-    y: 1,
+    x: init_x,
+    y: init_y,
     gameOver: false,
     board: [
         [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
@@ -30,54 +32,67 @@ let tetris = {
 
 let tetriminos = [
     [
-        [1, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+    ],
+    [
         [0, 0, 0, 0],
+        [0, 2, 2, 0],
+        [0, 2, 2, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0],
     ],
     [
-        [0, 2, 2],
-        [0, 2, 2],
-        [0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 3, 3, 0],
+        [0, 3, 3, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ],
     [
-        [0, 3, 3],
-        [3, 3, 0],
-        [0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 4, 4, 0, 0],
+        [0, 0, 4, 4, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ],
     [
-        [4, 4, 0],
-        [0, 4, 4],
-        [0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 5, 5, 5, 0],
+        [0, 0, 0, 5, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ],
     [
-        [5, 5, 5],
-        [0, 0, 5],
-        [0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 6, 0],
+        [0, 6, 6, 6, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ],
     [
-        [0, 0, 6],
-        [6, 6, 6],
-        [0, 0, 0],
-    ],
-    [
-        [0, 7, 0],
-        [7, 7, 7],
-        [0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 7, 0],
+        [0, 7, 7, 7, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ],
 ];
 
 function landTetrimino() {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
+            if (tetris.y + y > 21) continue;
             tetris.board[tetris.y + y][tetris.x + x] += tetris.tetrimino[y][x];
         }
     }
 }
 
 function nextTetrimino() {
-    tetris.x = 4;
-    tetris.y = 1;
+    tetris.x = init_x;
+    tetris.y = init_y;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
     
     if (isOverlapped(tetris.x, tetris.y)) tetris.gameOver = true;
