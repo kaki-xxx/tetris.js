@@ -94,6 +94,7 @@ function nextTetrimino() {
     tetris.x = init_x;
     tetris.y = init_y;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+    if (tetris.tetrimino.length == 4) tetris.x++;
     
     if (isOverlapped(tetris.x, tetris.y, tetris.tetrimino)) tetris.gameOver = true;
 }
@@ -206,6 +207,7 @@ function initTetris() {
     context.lineWidth = 2;
     tetris.context = context;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+    if (tetris.tetrimino.length == 4) tetris.x++;
     tetris.width = canvas.width;
     tetris.height = canvas.height;
     drawScreen();
