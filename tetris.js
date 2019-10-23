@@ -95,13 +95,13 @@ function nextTetrimino() {
     tetris.y = init_y;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
     
-    if (isOverlapped(tetris.x, tetris.y)) tetris.gameOver = true;
+    if (isOverlapped(tetris.x, tetris.y, tetris.tetrimino)) tetris.gameOver = true;
 }
 
-function isOverlapped(ux, uy) {
+function isOverlapped(ux, uy, tetrimino) {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
-            if (tetris.tetrimino[y][x] != 0 && tetris.board[uy + y][ux + x] != 0)
+            if (tetrimino[y][x] != 0 && tetris.board[uy + y][ux + x] != 0)
                 return true;
         }
     }
@@ -109,7 +109,7 @@ function isOverlapped(ux, uy) {
 }
 
 function fallDown() {
-    if (!isOverlapped(tetris.x, tetris.y + 1)) {
+    if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) {
         tetris.y++;
     } else {
         landTetrimino();
@@ -229,16 +229,17 @@ function rotateRight() {
 function handleKeydown(event) {
     switch (event.key) {
         case "ArrowLeft":
-            if (!isOverlapped(tetris.x - 1, tetris.y)) tetris.x--;
+            if (!isOverlapped(tetris.x - 1, tetris.y, tetris.tetrimino)) tetris.x--;
             break;
         case "ArrowRight":
-            if (!isOverlapped(tetris.x + 1, tetris.y)) tetris.x++
+            if (!isOverlapped(tetris.x + 1, tetris.y, tetris.tetrimino)) tetris.x++
             break;
         case "ArrowDown":
-            if (!isOverlapped(tetris.x, tetris.y + 1)) tetris.y++
+            if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) tetris.y++
             break;
         case "ArrowUp":
-            tetris.tetrimino = rotateRight();
+            let new_tetrimino = rotateRight();
+            if (!isOverlapped(tetris.x, tetris.y, new_tetrimino)) tetris.tetrimino = new_tetrimino;
             break;
     }
     drawScreen();
