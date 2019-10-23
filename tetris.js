@@ -163,9 +163,6 @@ function drawScreen() {
     tetris.context.clearRect(0, 0, tetris.width, tetris.height);
     for (let [y, row] of tetris.board.entries()) {
         for (let [x, cell] of row.entries()) {
-            if (x == tetris.x && y == tetris.y) {
-                drawTetrimino(tetris.tetrimino);
-            }
             if (cell == 0) continue;
             tetris.context.beginPath();
             switch (cell) {
@@ -199,6 +196,7 @@ function drawScreen() {
             tetris.context.stroke();
         }
     }
+    drawTetrimino(tetris.tetrimino);
 }
 
 function initTetris() {
