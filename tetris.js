@@ -211,6 +211,21 @@ function initTetris() {
     drawScreen();
 }
 
+function rotateRight() {
+    let width = tetris.tetrimino[0].length;
+    let height = tetris.tetrimino.length;
+    let new_tetrimino = Array(width);
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        new_tetrimino[y] = Array(height);
+    }
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        for (let [x, cell] of row.entries()) {
+            new_tetrimino[x][width - 1 - y] = tetris.tetrimino[y][x];
+        }
+    }
+    return new_tetrimino;
+}
+
 function handleKeydown(event) {
     switch (event.key) {
         case "ArrowLeft":
@@ -221,6 +236,9 @@ function handleKeydown(event) {
             break;
         case "ArrowDown":
             if (!isOverlapped(tetris.x, tetris.y + 1)) tetris.y++
+            break;
+        case "ArrowUp":
+            tetris.tetrimino = rotateRight();
             break;
     }
     drawScreen();
