@@ -4,6 +4,8 @@ let tetris = {
     x: init_x,
     y: init_y,
     gameOver: false,
+    score: 0,
+    lines: 0,
     board: [
         [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
         [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
@@ -93,6 +95,21 @@ function lineClear() {
     for (let i = tetris.y; i < tetris.board.length - 1 && i < tetris.y + tetris.tetrimino.length; i++) {
         if (isCompleted(i)) completedLines.push(i);
     }
+    switch (completedLines.length) {
+        case 1:
+            tetris.score += 40;
+            break;
+        case 2:
+            tetris.score += 100;
+            break;
+        case 3:
+            tetris.score += 300;
+            break;
+        case 4:
+            tetris.score += 1200;
+            break;
+    }
+    tetris.lines += completedLines.length;
     console.log(completedLines);
     for (let completedLine of completedLines) {
         for (let y = completedLine; y > 1; y--) {
