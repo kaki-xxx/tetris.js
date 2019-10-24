@@ -164,6 +164,19 @@ function progress() {
     drawScreen();
 }
 
+function drawLeftSidebar() {
+    tetris.context.beginPath();
+    tetris.context.fillStyle = "black";
+    tetris.context.fillText("SCORE", 5, 70);
+    tetris.context.textAlign = "right";
+    tetris.context.fillText(tetris.score, 90, 85);
+    tetris.context.textAlign = "left";
+    tetris.context.fillText("LINES", 5, 130);
+    tetris.context.textAlign = "right";
+    tetris.context.fillText(tetris.lines, 90, 145);
+    tetris.context.textAlign = "start";
+}
+
 function drawTetrimino(tetrimino) {
     for (let [y, row] of tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
@@ -192,7 +205,7 @@ function drawTetrimino(tetrimino) {
                     tetris.context.fillStyle = "purple";
                     break;
             }
-            tetris.context.rect((tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
+            tetris.context.rect(tetris.sidebarWidth + (tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
             tetris.context.fill();
             tetris.context.stroke();
         }
@@ -231,23 +244,26 @@ function drawScreen() {
                     tetris.context.fillStyle = "gray";
                     break;
             }
-            tetris.context.rect(x * 20, y * 20, 20, 20);
+            tetris.context.rect(tetris.sidebarWidth + x * 20, y * 20, 20, 20);
             tetris.context.fill();
             tetris.context.stroke();
         }
     }
     drawTetrimino(tetris.tetrimino);
+    drawLeftSidebar();
 }
 
 function initTetris() {
     let canvas = document.getElementById('tetris');
     let context = canvas.getContext('2d');
     context.lineWidth = 2;
+    context.font = "15px sans-serif";
     tetris.context = context;
     tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
     if (tetris.tetrimino.length == 4) tetris.x++;
-    tetris.width = canvas.width;
-    tetris.height = canvas.height;
+    tetris.width = 340;
+    tetris.height = 440;
+    tetris.sidebarWidth = 100;
     drawScreen();
 }
 
