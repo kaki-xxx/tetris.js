@@ -81,6 +81,28 @@ let tetriminos = [
     ],
 ];
 
+function isCompleted(y) {
+    for (let i = 0; i < tetris.width; i++) {
+        if (tetris.board[y][i] == 0) return false;
+    }
+    return true;
+}
+
+function lineClear() {
+    let completedLines = [];
+    for (let i = tetris.y; i < tetris.board.length - 1 && i < tetris.y + tetris.tetrimino.length; i++) {
+        if (isCompleted(i)) completedLines.push(i);
+    }
+    console.log(completedLines);
+    for (let completedLine of completedLines) {
+        for (let y = completedLine; y > 1; y--) {
+            for (let x = 1; x < tetris.width - 2; x++) {
+                tetris.board[y][x] = tetris.board[y - 1][x];
+            }
+        }
+    }
+}
+
 function landTetrimino() {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
@@ -88,6 +110,7 @@ function landTetrimino() {
             tetris.board[tetris.y + y][tetris.x + x] += tetris.tetrimino[y][x];
         }
     }
+    lineClear();
 }
 
 function nextTetrimino() {
