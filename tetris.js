@@ -33,9 +33,9 @@ let tetriminos = [
     ],
     [
         [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
         [0, 5, 5, 5, 0],
         [0, 0, 0, 5, 0],
-        [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
     ],
     [
@@ -286,6 +286,7 @@ function drawLeftSidebar() {
 // プレイヤーの操作を受け付ける処理
 
 function controlTetriminio(event) {
+    let new_tetrimino;
     switch (event.key) {
         case "ArrowLeft":
             if (!isOverlapped(tetris.x - 1, tetris.y, tetris.tetrimino)) tetris.x--;
@@ -296,8 +297,12 @@ function controlTetriminio(event) {
         case "ArrowDown":
             if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) tetris.y++
             break;
-        case "ArrowUp":
-            let new_tetrimino = rotateRight();
+        case "x":
+            new_tetrimino = rotateRight();
+            if (!isOverlapped(tetris.x, tetris.y, new_tetrimino)) tetris.tetrimino = new_tetrimino;
+            break;
+        case "z":
+            new_tetrimino = rotateLeft();
             if (!isOverlapped(tetris.x, tetris.y, new_tetrimino)) tetris.tetrimino = new_tetrimino;
             break;
     }
@@ -316,6 +321,21 @@ function rotateRight() {
     for (let [y, row] of tetris.tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
             new_tetrimino[x][width - 1 - y] = tetris.tetrimino[y][x];
+        }
+    }
+    return new_tetrimino;
+}
+
+function rotateLeft() {
+    let width = tetris.tetrimino[0].length;
+    let height = tetris.tetrimino.length;
+    let new_tetrimino = Array(width);
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        new_tetrimino[y] = Array(height);
+    }
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        for (let [x, cell] of row.entries()) {
+            new_tetrimino[height - 1 - x][y] = tetris.tetrimino[y][x];
         }
     }
     return new_tetrimino;
