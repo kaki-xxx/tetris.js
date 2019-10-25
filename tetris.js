@@ -1,36 +1,7 @@
-let init_x = 3;
-let init_y = 0;
-let tetris = {
-    x: init_x,
-    y: init_y,
-    gameOver: false,
-    score: 0,
-    lines: 0,
-    board: [
-        [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
-    ],
-};
+// 初期化、ゲームの状態を保存する変数の定義
+
+let INIT_X = 3;
+let INIT_Y = 0;
 
 let tetriminos = [
     [
@@ -76,19 +47,63 @@ let tetriminos = [
     ],
     [
         [0, 0, 0, 0, 0],
-        [0, 0, 0, 7, 0],
+        [0, 0, 7, 0, 0],
         [0, 7, 7, 7, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
     ],
 ];
 
-function isCompleted(y) {
-    for (let i = 0; i < tetris.width; i++) {
-        if (tetris.board[y][i] == 0) return false;
-    }
-    return true;
+let tetris = {
+};
+
+function initTetris() {
+    let canvas = document.getElementById('tetris');
+    let context = canvas.getContext('2d');
+    context.lineWidth = 2;
+    context.font = "15px sans-serif";
+
+    tetris.x = INIT_X;
+    tetris.y = INIT_Y;
+    tetris.gameOver = false;
+    tetris.score = 0;
+    tetris.lines = 0;
+    tetris.board = [
+        [9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+        [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    ];
+    tetris.context = context;
+    tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+    if (tetris.tetrimino.length == 4) tetris.x++;
+    tetris.width = 340;
+    tetris.height = 440;
+    tetris.sidebarWidth = 100;
+    drawScreen();
 }
+
+window.addEventListener("load", initTetris);
+
+// ラインクリア処理
 
 function lineClear() {
     let completedLines = [];
@@ -120,24 +135,14 @@ function lineClear() {
     }
 }
 
-function landTetrimino() {
-    for (let [y, row] of tetris.tetrimino.entries()) {
-        for (let [x, cell] of row.entries()) {
-            if (tetris.y + y > 21) continue;
-            tetris.board[tetris.y + y][tetris.x + x] += tetris.tetrimino[y][x];
-        }
+function isCompleted(y) {
+    for (let i = 0; i < tetris.width; i++) {
+        if (tetris.board[y][i] == 0) return false;
     }
-    lineClear();
+    return true;
 }
 
-function nextTetrimino() {
-    tetris.x = init_x;
-    tetris.y = init_y;
-    tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
-    if (tetris.tetrimino.length == 4) tetris.x++;
-    
-    if (isOverlapped(tetris.x, tetris.y, tetris.tetrimino)) tetris.gameOver = true;
-}
+// ぶつかり判定
 
 function isOverlapped(ux, uy, tetrimino) {
     for (let [y, row] of tetris.tetrimino.entries()) {
@@ -149,14 +154,7 @@ function isOverlapped(ux, uy, tetrimino) {
     return false;
 }
 
-function fallDown() {
-    if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) {
-        tetris.y++;
-    } else {
-        landTetrimino();
-        nextTetrimino();
-    }
-}
+// ブロックの落下、固定、次のブロックを呼び出す処理
 
 function progress() {
     if (tetris.gameOver) return;
@@ -164,53 +162,37 @@ function progress() {
     drawScreen();
 }
 
-function drawLeftSidebar() {
-    tetris.context.beginPath();
-    tetris.context.fillStyle = "black";
-    tetris.context.fillText("SCORE", 5, 70);
-    tetris.context.textAlign = "right";
-    tetris.context.fillText(tetris.score, 90, 85);
-    tetris.context.textAlign = "left";
-    tetris.context.fillText("LINES", 5, 130);
-    tetris.context.textAlign = "right";
-    tetris.context.fillText(tetris.lines, 90, 145);
-    tetris.context.textAlign = "start";
-}
+window.setInterval(progress, 1000);
 
-function drawTetrimino(tetrimino) {
-    for (let [y, row] of tetrimino.entries()) {
-        for (let [x, cell] of row.entries()) {
-            if (cell == 0) continue;
-            tetris.context.beginPath();
-            switch (cell) {
-                case 1:
-                    tetris.context.fillStyle = "lightblue";
-                    break;
-                case 2:
-                    tetris.context.fillStyle = "yellow";
-                    break;
-                case 3:
-                    tetris.context.fillStyle = "green";
-                    break;
-                case 4:
-                    tetris.context.fillStyle = "red";
-                    break;
-                case 5:
-                    tetris.context.fillStyle = "blue";
-                    break;
-                case 6:
-                    tetris.context.fillStyle = "orange";
-                    break;
-                case 7:
-                    tetris.context.fillStyle = "purple";
-                    break;
-            }
-            tetris.context.rect(tetris.sidebarWidth + (tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
-            tetris.context.fill();
-            tetris.context.stroke();
-        }
+function fallDown() {
+    if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) {
+        tetris.y++;
+    } else {
+        fixTetrimino();
+        nextTetrimino();
     }
 }
+
+function fixTetrimino() {
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        for (let [x, cell] of row.entries()) {
+            if (tetris.y + y > 21) continue;
+            tetris.board[tetris.y + y][tetris.x + x] += tetris.tetrimino[y][x];
+        }
+    }
+    lineClear();
+}
+
+function nextTetrimino() {
+    tetris.x = INIT_X;
+    tetris.y = INIT_Y;
+    tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
+    if (tetris.tetrimino.length == 4) tetris.x++;
+
+    if (isOverlapped(tetris.x, tetris.y, tetris.tetrimino)) tetris.gameOver = true;
+}
+
+// 画面の表示処理
 
 function drawScreen() {
     tetris.context.clearRect(0, 0, tetris.width, tetris.height);
@@ -253,36 +235,57 @@ function drawScreen() {
     drawLeftSidebar();
 }
 
-function initTetris() {
-    let canvas = document.getElementById('tetris');
-    let context = canvas.getContext('2d');
-    context.lineWidth = 2;
-    context.font = "15px sans-serif";
-    tetris.context = context;
-    tetris.tetrimino = tetriminos[Math.floor(Math.random() * tetriminos.length)];
-    if (tetris.tetrimino.length == 4) tetris.x++;
-    tetris.width = 340;
-    tetris.height = 440;
-    tetris.sidebarWidth = 100;
-    drawScreen();
-}
-
-function rotateRight() {
-    let width = tetris.tetrimino[0].length;
-    let height = tetris.tetrimino.length;
-    let new_tetrimino = Array(width);
-    for (let [y, row] of tetris.tetrimino.entries()) {
-        new_tetrimino[y] = Array(height);
-    }
-    for (let [y, row] of tetris.tetrimino.entries()) {
+function drawTetrimino(tetrimino) {
+    for (let [y, row] of tetrimino.entries()) {
         for (let [x, cell] of row.entries()) {
-            new_tetrimino[x][width - 1 - y] = tetris.tetrimino[y][x];
+            if (cell == 0) continue;
+            tetris.context.beginPath();
+            switch (cell) {
+                case 1:
+                    tetris.context.fillStyle = "lightblue";
+                    break;
+                case 2:
+                    tetris.context.fillStyle = "yellow";
+                    break;
+                case 3:
+                    tetris.context.fillStyle = "green";
+                    break;
+                case 4:
+                    tetris.context.fillStyle = "red";
+                    break;
+                case 5:
+                    tetris.context.fillStyle = "blue";
+                    break;
+                case 6:
+                    tetris.context.fillStyle = "orange";
+                    break;
+                case 7:
+                    tetris.context.fillStyle = "purple";
+                    break;
+            }
+            tetris.context.rect(tetris.sidebarWidth + (tetris.x + x) * 20, (tetris.y + y) * 20, 20, 20);
+            tetris.context.fill();
+            tetris.context.stroke();
         }
     }
-    return new_tetrimino;
 }
 
-function handleKeydown(event) {
+function drawLeftSidebar() {
+    tetris.context.beginPath();
+    tetris.context.fillStyle = "black";
+    tetris.context.fillText("SCORE", 5, 70);
+    tetris.context.textAlign = "right";
+    tetris.context.fillText(tetris.score, 90, 85);
+    tetris.context.textAlign = "left";
+    tetris.context.fillText("LINES", 5, 130);
+    tetris.context.textAlign = "right";
+    tetris.context.fillText(tetris.lines, 90, 145);
+    tetris.context.textAlign = "start";
+}
+
+// プレイヤーの操作を受け付ける処理
+
+function controlTetriminio(event) {
     switch (event.key) {
         case "ArrowLeft":
             if (!isOverlapped(tetris.x - 1, tetris.y, tetris.tetrimino)) tetris.x--;
@@ -301,6 +304,19 @@ function handleKeydown(event) {
     drawScreen();
 }
 
-window.addEventListener("load", initTetris);
-window.addEventListener("keydown", handleKeydown);
-window.setInterval(progress, 1000);
+window.addEventListener("keydown", controlTetriminio);
+
+function rotateRight() {
+    let width = tetris.tetrimino[0].length;
+    let height = tetris.tetrimino.length;
+    let new_tetrimino = Array(width);
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        new_tetrimino[y] = Array(height);
+    }
+    for (let [y, row] of tetris.tetrimino.entries()) {
+        for (let [x, cell] of row.entries()) {
+            new_tetrimino[x][width - 1 - y] = tetris.tetrimino[y][x];
+        }
+    }
+    return new_tetrimino;
+}
