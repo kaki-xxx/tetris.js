@@ -125,7 +125,6 @@ function lineClear() {
             break;
     }
     tetris.lines += completedLines.length;
-    console.log(completedLines);
     for (let completedLine of completedLines) {
         for (let y = completedLine; y > 1; y--) {
             for (let x = 1; x < tetris.width - 2; x++) {
