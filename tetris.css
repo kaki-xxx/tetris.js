@@ -5,3 +5,10 @@ body {
 h1 {
     font-size: medium;
 }
+
+button {
+    font-size: medium;
+    height: 30px;
+    width: 50px;
+    border: 1px solid black;
+}
