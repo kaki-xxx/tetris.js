@@ -98,6 +98,12 @@ function initTetris() {
     tetris.width = 340;
     tetris.height = 440;
     tetris.sidebarWidth = 100;
+
+    let buttons = document.getElementsByTagName("button");
+    for (let button of buttons) {
+        button.addEventListener("click", controlTetriminio);
+    }
+
     drawScreen();
 }
 
@@ -284,23 +290,38 @@ function drawLeftSidebar() {
 
 // プレイヤーの操作を受け付ける処理
 
+let CONTROL_TYPE = {
+    MOVE_LEFT: 1,
+    MOVE_RIGHT: 2,
+    MOVE_DOWN: 3,
+    ROTATE_LEFT: 4,
+    ROTATE_RIGHT: 5,
+}
+
 function controlTetriminio(event) {
+    let controlType;
+    if (event.type == "click") {
+        controlType = handleOnClick(event);
+    } else if (event.type == "keydown") {
+        controlType = handleKeydown(event);
+    }
+
     let new_tetrimino;
-    switch (event.key) {
-        case "ArrowLeft":
+    switch (controlType) {
+        case CONTROL_TYPE.MOVE_LEFT:
             if (!isOverlapped(tetris.x - 1, tetris.y, tetris.tetrimino)) tetris.x--;
             break;
-        case "ArrowRight":
+        case CONTROL_TYPE.MOVE_RIGHT:
             if (!isOverlapped(tetris.x + 1, tetris.y, tetris.tetrimino)) tetris.x++
             break;
-        case "ArrowDown":
+        case CONTROL_TYPE.MOVE_DOWN:
             if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) tetris.y++
             break;
-        case "x":
+        case CONTROL_TYPE.ROTATE_RIGHT:
             new_tetrimino = rotateRight();
             if (!isOverlapped(tetris.x, tetris.y, new_tetrimino)) tetris.tetrimino = new_tetrimino;
             break;
-        case "z":
+        case CONTROL_TYPE.ROTATE_LEFT:
             new_tetrimino = rotateLeft();
             if (!isOverlapped(tetris.x, tetris.y, new_tetrimino)) tetris.tetrimino = new_tetrimino;
             break;
@@ -309,6 +330,37 @@ function controlTetriminio(event) {
 }
 
 window.addEventListener("keydown", controlTetriminio);
+
+function handleKeydown(event) {
+    switch (event.key) {
+        case "ArrowLeft":
+            return CONTROL_TYPE.MOVE_LEFT;
+        case "ArrowRight":
+            return CONTROL_TYPE.MOVE_RIGHT;
+        case "ArrowDown":
+            return CONTROL_TYPE.MOVE_DOWN;
+        case "x":
+            return CONTROL_TYPE.ROTATE_LEFT;
+        case "z":
+            return CONTROL_TYPE.ROTATE_LEFT;
+    }
+}
+
+function handleOnClick(event) {
+    let target = event.target;
+    switch (target.id) {
+        case "left":
+            return CONTROL_TYPE.MOVE_LEFT;
+        case "right":
+            return CONTROL_TYPE.MOVE_RIGHT;
+        case "down":
+            return CONTROL_TYPE.MOVE_DOWN;
+        case "rotateLeft":
+            return CONTROL_TYPE.ROTATE_LEFT;
+        case "rotateRight":
+            return CONTROL_TYPE.ROTATE_LEFT;
+    }
+}
 
 function rotateRight() {
     let width = tetris.tetrimino[0].length;
