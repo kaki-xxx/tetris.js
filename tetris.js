@@ -99,11 +99,6 @@ function initTetris() {
     tetris.height = 440;
     tetris.sidebarWidth = 100;
 
-    let buttons = document.getElementsByTagName("button");
-    for (let button of buttons) {
-        button.addEventListener("click", controlTetriminio);
-    }
-
     drawScreen();
 }
 
@@ -361,6 +356,14 @@ function handleOnClick(event) {
             return CONTROL_TYPE.ROTATE_LEFT;
     }
 }
+
+window.addEventListener("load", function () {
+    let buttons = document.getElementsByTagName("button");
+    for (let button of buttons) {
+        button.addEventListener("click", controlTetriminio);
+    }
+
+});
 
 function rotateRight() {
     let width = tetris.tetrimino[0].length;
