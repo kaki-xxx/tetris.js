@@ -317,34 +317,6 @@ function handleKeydown(event) {
 
 window.addEventListener("keydown", handleKeydown);
 
-function handleClick(event) {
-    let target = event.target;
-    switch (target.id) {
-        case "left":
-            controlTetriminio(CONTROL_TYPE.MOVE_LEFT);
-            break;
-        case "right":
-            controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
-            break;
-        case "down":
-            controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
-            break;
-        case "rotateLeft":
-            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
-            break;
-        case "rotateRight":
-            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
-            break;
-    }
-}
-
-window.addEventListener("load", function () {
-    let buttons = document.getElementsByTagName("button");
-    for (let button of buttons) {
-        button.addEventListener("click", handleClick);
-    }
-});
-
 function handleStarttouch(event) {
     let touch = event.changedTouches[0];
     tetris.touchX = touch.pageX;
@@ -360,6 +332,10 @@ function handleEndtouch(event) {
     let moveX = Math.abs(tetris.touchX - newTouchX);
     let moveY = Math.abs(tetris.touchY - newTouchY);
 
+    if (moveX < 30 && moveY < 30) {
+        controlTetriminio(CONTROL_TYPE.ROTATE_RIGHT);
+        return;
+    }
     if (tetris.touchX < newTouchX) {
         controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
         return;
