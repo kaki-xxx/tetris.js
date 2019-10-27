@@ -160,14 +160,14 @@ function isOverlapped(ux, uy, tetrimino) {
 
 function progress() {
     if (tetris.gameOver) {
-        clearInterval(tetris.timer);
+        clearInterval(tetris.progressTimer);
         return;
     }
     fallDown();
     drawScreen();
 }
 
-tetris.timer = window.setInterval(progress, 1000);
+tetris.progressTimer = window.setInterval(progress, 1000);
 
 function fallDown() {
     if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) {
@@ -328,14 +328,34 @@ function handleStarttouch(event) {
 
 window.addEventListener("touchstart", handleStarttouch);
 
+function handleTouchmove(event) {
+    if (tetris.moveDownTimer) return;
+    let touch = event.changedTouches[0];
+    let newTouchY = touch.pageY;
+
+    if (newTouchY > tetris.touchX + 200) {
+        tetris.moveDownTimer = setInterval(function () {
+            controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
+        }, 50);
+    };
+}
+
+window.addEventListener("touchmove", handleTouchmove);
+
 function handleEndtouch(event) {
+    if (tetris.moveDownTimer) {
+        clearInterval(tetris.moveDownTimer);
+        tetris.moveDownTimer = null;
+        return;
+    }
+
     let touch = event.changedTouches[0];
     let newTouchX = touch.pageX;
     let newTouchY = touch.pageY;
     let moveX = Math.abs(tetris.touchX - newTouchX);
     let moveY = Math.abs(tetris.touchY - newTouchY);
 
-    if (moveX < 30 && moveY < 30) {
+    if (moveX < 20 && moveY < 20) {
         controlTetriminio(CONTROL_TYPE.ROTATE_RIGHT);
         return;
     }
