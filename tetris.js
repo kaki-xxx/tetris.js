@@ -359,10 +359,7 @@ function handleEndtouch(event) {
     let newTouchY = touch.pageY;
     let moveX = Math.abs(tetris.touchX - newTouchX);
     let moveY = Math.abs(tetris.touchY - newTouchY);
-    if (moveX < 10 && moveY < 10) {
-        controlTetriminio(CONTROL_TYPE.ROTATE_RIGHT);
-        return;
-    }
+
     if (tetris.touchX < newTouchX) {
         controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
         return;
@@ -372,13 +369,12 @@ function handleEndtouch(event) {
         return;
     }
 
-    if (tetris.touchY > newTouchY + 10) {
-        controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
-        return;
-    }
 }
 
 window.addEventListener("touchend", handleEndtouch);
+window.addEventListener("touchmove", function (event) {
+    event.preventDefault();
+}, {passive: false});
 
 function controlTetriminio(controlType) {
     let new_tetrimino;
