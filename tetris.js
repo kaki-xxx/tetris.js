@@ -296,7 +296,7 @@ let CONTROL_TYPE = {
 function controlTetriminio(event) {
     let controlType;
     if (event.type == "click") {
-        controlType = handleOnClick(event);
+        controlType = handleClick(event);
     } else if (event.type == "keydown") {
         controlType = handleKeydown(event);
     }
@@ -341,7 +341,7 @@ function handleKeydown(event) {
     }
 }
 
-function handleOnClick(event) {
+function handleClick(event) {
     let target = event.target;
     switch (target.id) {
         case "left":
