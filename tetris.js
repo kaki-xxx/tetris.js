@@ -159,12 +159,15 @@ function isOverlapped(ux, uy, tetrimino) {
 // ブロックの落下、固定、次のブロックを呼び出す処理
 
 function progress() {
-    if (tetris.gameOver) return;
+    if (tetris.gameOver) {
+        clearInterval(tetris.timer);
+        return;
+    }
     fallDown();
     drawScreen();
 }
 
-window.setInterval(progress, 1000);
+tetris.timer = window.setInterval(progress, 1000);
 
 function fallDown() {
     if (!isOverlapped(tetris.x, tetris.y + 1, tetris.tetrimino)) {
