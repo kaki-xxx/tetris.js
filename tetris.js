@@ -98,6 +98,8 @@ function initTetris() {
     tetris.width = 340;
     tetris.height = 440;
     tetris.sidebarWidth = 100;
+    tetris.touchX = 0;
+    tetris.touchY = 0;
 
     drawScreen();
 }
@@ -342,6 +344,41 @@ window.addEventListener("load", function () {
         button.addEventListener("click", handleClick);
     }
 });
+
+function handleStarttouch(event) {
+    let touch = event.changedTouches[0];
+    tetris.touchX = touch.pageX;
+    tetris.touchY = touch.pageY;
+}
+
+window.addEventListener("touchstart", handleStarttouch);
+
+function handleEndtouch(event) {
+    let touch = event.changedTouches[0];
+    let newTouchX = touch.pageX;
+    let newTouchY = touch.pageY;
+    let moveX = Math.abs(tetris.touchX - newTouchX);
+    let moveY = Math.abs(tetris.touchY - newTouchY);
+    if (moveX < 10 && moveY < 10) {
+        controlTetriminio(CONTROL_TYPE.ROTATE_RIGHT);
+        return;
+    }
+    if (tetris.touchX < newTouchX) {
+        controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
+        return;
+    }
+    if (tetris.touchX > newTouchX) {
+        controlTetriminio(CONTROL_TYPE.MOVE_LEFT);
+        return;
+    }
+
+    if (tetris.touchY > newTouchY + 10) {
+        controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
+        return;
+    }
+}
+
+window.addEventListener("touchend", handleEndtouch);
 
 function controlTetriminio(controlType) {
     let new_tetrimino;
