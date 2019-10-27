@@ -293,14 +293,57 @@ let CONTROL_TYPE = {
     ROTATE_RIGHT: 5,
 }
 
-function controlTetriminio(event) {
-    let controlType;
-    if (event.type == "click") {
-        controlType = handleClick(event);
-    } else if (event.type == "keydown") {
-        controlType = handleKeydown(event);
+function handleKeydown(event) {
+    switch (event.key) {
+        case "ArrowLeft":
+            controlTetriminio(CONTROL_TYPE.MOVE_LEFT);
+            break;
+        case "ArrowRight":
+            controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
+            break;
+        case "ArrowDown":
+            controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
+            break;
+        case "x":
+            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
+            break;
+        case "z":
+            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
+            break;
     }
+}
 
+window.addEventListener("keydown", handleKeydown);
+
+function handleClick(event) {
+    let target = event.target;
+    switch (target.id) {
+        case "left":
+            controlTetriminio(CONTROL_TYPE.MOVE_LEFT);
+            break;
+        case "right":
+            controlTetriminio(CONTROL_TYPE.MOVE_RIGHT);
+            break;
+        case "down":
+            controlTetriminio(CONTROL_TYPE.MOVE_DOWN);
+            break;
+        case "rotateLeft":
+            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
+            break;
+        case "rotateRight":
+            controlTetriminio(CONTROL_TYPE.ROTATE_LEFT);
+            break;
+    }
+}
+
+window.addEventListener("load", function () {
+    let buttons = document.getElementsByTagName("button");
+    for (let button of buttons) {
+        button.addEventListener("click", handleClick);
+    }
+});
+
+function controlTetriminio(controlType) {
     let new_tetrimino;
     switch (controlType) {
         case CONTROL_TYPE.MOVE_LEFT:
@@ -323,47 +366,6 @@ function controlTetriminio(event) {
     }
     drawScreen();
 }
-
-window.addEventListener("keydown", controlTetriminio);
-
-function handleKeydown(event) {
-    switch (event.key) {
-        case "ArrowLeft":
-            return CONTROL_TYPE.MOVE_LEFT;
-        case "ArrowRight":
-            return CONTROL_TYPE.MOVE_RIGHT;
-        case "ArrowDown":
-            return CONTROL_TYPE.MOVE_DOWN;
-        case "x":
-            return CONTROL_TYPE.ROTATE_LEFT;
-        case "z":
-            return CONTROL_TYPE.ROTATE_LEFT;
-    }
-}
-
-function handleClick(event) {
-    let target = event.target;
-    switch (target.id) {
-        case "left":
-            return CONTROL_TYPE.MOVE_LEFT;
-        case "right":
-            return CONTROL_TYPE.MOVE_RIGHT;
-        case "down":
-            return CONTROL_TYPE.MOVE_DOWN;
-        case "rotateLeft":
-            return CONTROL_TYPE.ROTATE_LEFT;
-        case "rotateRight":
-            return CONTROL_TYPE.ROTATE_LEFT;
-    }
-}
-
-window.addEventListener("load", function () {
-    let buttons = document.getElementsByTagName("button");
-    for (let button of buttons) {
-        button.addEventListener("click", controlTetriminio);
-    }
-
-});
 
 function rotateRight() {
     let width = tetris.tetrimino[0].length;
